@@ -1,0 +1,57 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/pm-core",
+    "crates/pm-cli",
+    "crates/pm-server",
+    "apps/desktop/src-tauri",
+    "packages/core-wasm",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.82"
+license = "AGPL-3.0-or-later"
+repository = "https://github.com/example/pass-man"
+authors = ["pass-man contributors"]
+
+[workspace.dependencies]
+pm-core = { path = "crates/pm-core", version = "0.1.0" }
+
+# Cryptography
+argon2 = "0.5"
+chacha20poly1305 = "0.10"
+hkdf = "0.12"
+hmac = "0.12"
+sha1 = "0.10"
+sha2 = "0.10"
+rand = "0.8"
+zeroize = { version = "1", features = ["derive"] }
+
+# Data / storage
+rusqlite = { version = "0.32", features = ["bundled"] }
+base64 = "0.22"
+uuid = { version = "1", features = ["v4", "js"] }
+time = { version = "0.3", features = ["formatting", "parsing", "serde"] }
+
+# Serialization
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+# Errors
+thiserror = "1"
+anyhow = "1"
+
+# Async server
+tokio = { version = "1", features = ["full"] }
+axum = "0.8"
+tower-http = { version = "0.6", features = ["trace", "cors", "limit"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "symbols"

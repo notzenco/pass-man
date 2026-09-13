@@ -1,0 +1,31 @@
+# Rust
+/target
+**/*.rs.bk
+
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Tauri
+apps/desktop/src-tauri/target
+apps/desktop/src-tauri/gen
+
+# Generated WASM bindings
+packages/core-wasm/pkg/
+
+# Local data / secrets
+*.pmvault
+*.pmvault.bak
+.env
+.env.*
+!.env.example
+*.db
+*.db-journal
+*.sqlite
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json

@@ -1,0 +1,20 @@
+[package]
+name = "pm-cli"
+description = "Command-line interface for pass-man vaults"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[[bin]]
+name = "pm"
+path = "src/main.rs"
+
+[dependencies]
+pm-core = { workspace = true, features = ["storage"] }
+clap = { version = "4", features = ["derive", "env"] }
+rpassword = "7"
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true

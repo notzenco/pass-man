@@ -1,0 +1,17 @@
+{
+  "name": "pass-man",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cross-platform password manager",
+  "license": "AGPL-3.0-or-later",
+  "packageManager": "pnpm@11.24.0",
+  "scripts": {
+    "desktop:dev": "pnpm --filter @pass-man/desktop dev",
+    "desktop:build": "pnpm --filter @pass-man/desktop build",
+    "extension:dev": "pnpm --filter @pass-man/extension dev",
+    "extension:build": "pnpm --filter @pass-man/extension build",
+    "wasm:build": "wasm-pack build packages/core-wasm --target web --release --out-dir pkg",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "pnpm -r lint"
+  }
+}
