@@ -58,8 +58,9 @@ These are enforced in code and covered by tests:
 
 - No plaintext secret is ever written to disk, logs, or the network by the Rust
   core or sync server. (The browser preview mock, which runs only without the
-  Tauri runtime, stores cleartext in `localStorage`.) The smoke test greps both the vault file and the server database for known plaintext and
-  fails on any hit.
+  Tauri runtime, stores cleartext in `localStorage`.) The smoke test greps
+  both the vault file and the server database for known plaintext and fails on
+  any hit.
 - The master password is never persisted, only used to derive a key in memory.
 - Key material is held in a type that zeroizes on drop and deliberately does not
   implement `Clone`, `Display`, `Debug`, or `Serialize`.
