@@ -1,6 +1,6 @@
 # pass-man
 
-A cross-platform, end-to-end encrypted password manager. One audited Rust core
+A cross-platform, end-to-end encrypted password manager. One Rust core
 is shared by the CLI, desktop app, browser extension, and future mobile apps, so
 the cryptography and vault format exist in exactly one place.
 
@@ -97,9 +97,10 @@ pnpm desktop:build      # packaged app
 
 `pnpm --filter @pass-man/desktop dev` also serves the exact same frontend at
 `http://localhost:1420` in a plain browser. When the Tauri runtime is absent the
-app uses an in-memory mock backend (marked `PREVIEW` in the title bar), which is
-how the UI is developed and tested without rebuilding the Rust shell. The mock
-stores data in cleartext and is not a security boundary.
+app uses a mock backend (marked `PREVIEW` in the title bar), which is how the UI
+is developed and tested without rebuilding the Rust shell. The mock keeps the
+master password and items in cleartext in the browser's `localStorage`. It is
+not a security boundary; never use it with real secrets.
 
 Keyboard shortcuts: `Cmd/Ctrl+N` new item, `Cmd/Ctrl+L` lock, `Cmd/Ctrl+F` or
 `Cmd/Ctrl+K` search, `Esc` close dialog.
@@ -126,7 +127,9 @@ pnpm -r build                                           # build desktop + extens
 
 ## Security notes
 
-- No plaintext ever reaches disk or the network; tests assert this directly.
+- The Rust core and sync server never write plaintext to disk or the network;
+  tests assert this directly. The browser preview mock is the exception (see
+  above).
 - The master password is never stored, only used to derive a key in memory.
 - Changing the master password re-wraps the vault key and leaves items untouched.
 - `#![forbid(unsafe_code)]` in the core and server crates.
@@ -141,6 +144,6 @@ See [`SECURITY.md`](SECURITY.md) before relying on this for real secrets.
 
 ## License
 
-AGPL-3.0-or-later. See `Cargo.toml` and `package.json` for the machine-readable
-declaration.
+AGPL-3.0-or-later. The full text is in [`LICENSE`](LICENSE); `Cargo.toml` and
+`package.json` carry the machine-readable declaration.
 
